@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-8">
+
+        <table class="table table-bordered">
+
+            <tr>
+                <th>#</th>
+                <th>Ref</th>
+                <th>Type</th>
+                <th>Chef de projet</th>
+                <th>Actions</th>
+            </tr>
+
+            <tr ng-repeat="mission in missions | filter:sensitiveSearch"
+                ng-style="{
+							 'background-color': $index == selectedIndex ? 'lightgray' : ''
+						}"
+                ng-click="selectMission(mission, $index)">
+                <td>{{ $index }}</td>
+                <td>{{ mission.ref }}</td>
+                <td>{{ mission.type }}</td>
+                <td>{{ mission.manager }}</td>
+                <td><a href="/mission"><button type="button" class="btn btn-default">Consulter</button></a></td>
+            </tr>
+
+
+        </table>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Details</div>
+            <div class="panel-body">
+
+                <dl>
+                    <dt>Ref</dt>
+                    <dd>{{selectedMission.ref}}</dd>
+                    <dt>Type</dt>
+                    <dd>{{selectedMission.type}}</dd>
+                    <dt>Type d'AO</dt>
+                    <dd>{{selectedMission.type_ao}}</dd>
+                    <dt>Date de signature</dt>
+                    <dd>{{selectedMission.date_signature | date:"longDate"}}</dd>
+                    <dt>Chef de projet</dt>
+                    <dd>{{selectedMission.manager}}</dd>
+                    <dt>Prix</dt>
+                    <dd>{{selectedMission.price}}</dd>
+                    <dt>Description</dt>
+                    <dd>{{selectedMission.description}}</dd>
+                </dl>
+
+            </div>
+        </div>
+
+    </div>
+</div>
