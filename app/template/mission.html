@@ -1,0 +1,50 @@
+<button type="button" class="btn btn-default" ui-sref="list">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    Retour
+</button>
+
+<div class="col-md-12">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Details de la mission {{missions.mission.ref}}
+            <button class="btn btn-primary btn-sm pull-right" ui-sref="edit({ref:missions.mission.ref})">Editer</button>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <dl class="col-md-12">
+                    <div class="col-md-4">
+                        <dt>Ref</dt>
+                        <dd>{{missions.mission.ref}}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Type</dt>
+                        <dd>{{missions.mission.type}}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Type d'AO</dt>
+                        <dd>{{missions.mission.type_ao}}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Date de signature</dt>
+                        <dd>{{missions.mission.date_signature | date:"longDate"}}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Chef de projet</dt>
+                        <dd>{{missions.mission.manager}}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Prix</dt>
+                        <dd>{{missions.mission.price}}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Description</dt>
+                        <dd>{{missions.mission.description}}</dd>
+                    </div>
+                </dl>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

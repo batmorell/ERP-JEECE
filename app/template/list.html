@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+</div>
+
+<button class="btn btn-primary" ui-sref="newMission">Nouvelle mission</button>
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        Liste des Missions
+        <div class="col-md-3 pull-right">
+            <form class="form-inline well well-sm">
+                <span class="glyphicon glyphicon-search"></span>
+
+                <div class="form-group">
+                    <input type="text"
+                           class="form-control"
+                           id="name"
+                           ng-model="search"
+                           placeholder="Rechercher..."
+                    />
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-bordered">
+
+            <tr>
+                <th>#</th>
+                <th>Ref</th>
+                <th>Type</th>
+                <th>Chef de projet</th>
+            </tr>
+
+            <tr ng-repeat="mission in missions.missions | filter:sensitiveSearch"
+                ng-style="{
+							 'background-color': $index == selectedIndex ? 'lightgray' : ''
+						}"
+                ui-sref="mission({ref:mission.ref})"
+                ng-click="selectMission(mission, $index)">
+                <td>{{ $index }}</td>
+                <td><a ng-href="#/edit/{{mission.ref}}">{{ mission.ref }}</a></td>
+                <td>{{ mission.type }}</td>
+                <td>{{ mission.manager }}</td>
+            </tr>
+
+        </table>
+
+        <div class="spinner"
+             ng-show="missions.isLoading">
+            <span us-spinner="{radius:8, width:5, length: 3, lines:9}"></span>
+
+            <p>Loading...</p>
+        </div>
+    </div>
+</div>

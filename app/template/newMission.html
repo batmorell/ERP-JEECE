@@ -1,0 +1,129 @@
+<button type="button" class="btn btn-default" ui-sref="list">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    Retour
+</button>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Création d'une nouvelle mission
+        <div class="pull-right">
+            <button ng-if="mode == 'edit'"
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    ladda="missions.isDeleting"
+                    data-style="expand-right"
+                    ng-click="delete()">
+                Supprimer
+            </button>
+            <button type="button"
+                    class="btn btn-primary btn-sm"
+                    ladda="missions.isSaving"
+                    data-style="expand-right"
+                    ng-click="save()">
+                <span ng-if="mode == 'edit'">Sauvegarder</span>
+                <span ng-if="mode == 'create'">Créer</span>
+            </button>
+        </div>
+    </div>
+    <div class="panel-body container">
+        <form class="form-inline"
+              novalidate>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Référence</label>
+                <input type="text"
+                       class="form-control"
+                       name="ref"
+                       ng-model="missions.mission.ref"
+                       required/>
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Type</label>
+                <select name="type"
+                        class="form-control"
+                        ng-model="missions.mission.type">
+                    <option value="1">Site Vitrine</option>
+                    <option value="1">Site e-commerce</option>
+                    <option value="3">Site complexe autre</option>
+                    <option value="4">Conseil</option>
+                    <option value="5">Traduction technique</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Client</label>
+                <input type="text"
+                       class="form-control"
+                       name="photo"
+                       ng-model="missions.mission.client"
+                />
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Type d'AO</label>
+                <select name="Type_AO"
+                        class="form-control"
+                        ng-model="missions.mission.type_ao"
+                        id="">
+                    <option value="1">Kiwi</option>
+                    <option value="1">Jeece</option>
+                    <option value="3">Autre</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Date de signature</label>
+                <input type="date"
+                       name="date_signature"
+                       class="form-control"
+                       ng-model="missions.mission.date_signature"
+                />
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Date de fin</label>
+                <input type="date"
+                       name="date_end"
+                       class="form-control"
+                       ng-model="missions.mission.date_end"
+                />
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Chef de projet</label>
+                <input type="text"
+                       name="manager"
+                       class="form-control"
+                       ng-model="missions.mission.manager"
+                />
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Chargé qualite</label>
+                <input type="text"
+                       name="city"
+                       class="form-control"
+                       ng-model="missions.mission.quality_manager">
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Prochain Contact</label>
+                <input type="text"
+                       name="country"
+                       class="form-control"
+                       ng-model="missions.mission.next_contact"
+                />
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Prix</label>
+                <input type="text"
+                       name="country"
+                       class="form-control"
+                       ng-model="missions.mission.price"
+                />
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label>Description</label>
+                <input type="text"
+                       name="country"
+                       class="form-control"
+                       ng-model="missions.mission.description"
+                />
+            </div>
+    </div>
+
+    </form>
+</div>
+
