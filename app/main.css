@@ -127,3 +127,7 @@ body {
 .form-inline .form-group{
     margin-bottom: 30px;
 }
+
+.panel-heading .search{
+    margin-top: -10px;
+}

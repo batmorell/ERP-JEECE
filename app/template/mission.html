@@ -3,8 +3,6 @@
     Retour
 </button>
 
-<div class="col-md-12">
-
     <div class="panel panel-default">
         <div class="panel-heading">Details de la mission {{missions.mission.ref}}
             <button class="btn btn-primary btn-sm pull-right" ui-sref="edit({ref:missions.mission.ref})">Editer</button>
@@ -26,17 +24,25 @@
                     </div>
                     <div class="col-md-4">
                         <dt>Date de signature</dt>
-                        <dd>{{missions.mission.date_signature | date:"longDate"}}</dd>
+                        <dd>{{missions.mission.date_signature | date:'d/M/yyyy'}}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Date de signature</dt>
+                        <dd>{{missions.mission.date_end | date:'d/M/yyyy'}}</dd>
                     </div>
                     <div class="col-md-4">
                         <dt>Chef de projet</dt>
                         <dd>{{missions.mission.manager}}</dd>
                     </div>
                     <div class="col-md-4">
+                        <dt>Charge qualite</dt>
+                        <dd>{{missions.mission.quality_manager}}</dd>
+                    </div>
+                    <div class="col-md-4">
                         <dt>Prix</dt>
                         <dd>{{missions.mission.price}}</dd>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <dt>Description</dt>
                         <dd>{{missions.mission.description}}</dd>
                     </div>
@@ -46,5 +52,3 @@
         </div>
 
     </div>
-
-</div>

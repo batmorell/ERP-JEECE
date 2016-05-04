@@ -3,7 +3,8 @@ var app = angular.module('jeeceapp', [
     'angularSpinner',
     'angular-ladda',
     'toaster',
-    'ngAnimate'
+    'ngAnimate',
+    'mgcrea.ngStrap'
 ]);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
@@ -13,11 +14,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             views: {
                 'main-container': {
                     templateUrl: 'template/list.html',
-                    controller: 'formController'
+                    controller: 'listController'
                 },
                 'slidebar': {
                     templateUrl: 'template/slide-bar.html',
-                    controller: 'formController'
+                    controller: 'slideController'
                 }
             }
         })
@@ -52,6 +53,13 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
 });
 
+app.config(function($datepickerProvider){
+    angular.extend($datepickerProvider.defaults, {
+        dateFormat: 'd/M/yyyy',
+        autoclose: true
+    });
+});
+
 app.controller('missionDetailController', function ($scope, $stateParams, MissionService) {
     $scope.selectedMission = null;
     $scope.missions = MissionService;
@@ -60,38 +68,59 @@ app.controller('missionDetailController', function ($scope, $stateParams, Missio
 
 });
 
-app.controller('newMissionController', function ($scope, $http, MissionService,$state) {
+app.controller('newMissionController', function ($scope, $http, MissionService, $state, dateFilter) {
     $scope.missions = MissionService;
+    $scope.missions.mission = null;
     $scope.mode = 'create';
 
     $scope.save = function () {
         $scope.missions.create()
-            .then(function(){
+            .then(function () {
                 $state.go("list");
             })
     };
 });
 
-app.controller('editMissionController', function ($scope, MissionService,$state) {
+app.directive(
+    'dateInput',
+    function (dateFilter) {
+        return {
+            require: 'ngModel',
+            template: '<input type="date"></input>',
+            replace: true,
+            link: function (scope, elm, attrs, ngModelCtrl) {
+                ngModelCtrl.$formatters.unshift(function (modelValue) {
+                    return dateFilter(modelValue, 'yyyy/MM/dd');
+                });
+
+                ngModelCtrl.$parsers.unshift(function (viewValue) {
+                    return new Date(viewValue);
+                });
+            }
+        };
+    });
+
+app.controller('editMissionController', function ($scope, MissionService, $state) {
     $scope.mode = 'edit';
     $scope.missions = MissionService;
 
     $scope.save = function () {
         $scope.missions.update()
-            .then(function(){
+            .then(function () {
                 $state.go("list");
             })
     };
 
     $scope.delete = function () {
-        $scope.missions.delete().then(function(){
-                $state.go("list");
-            })
+        $scope.missions.delete().then(function () {
+            $state.go("list");
+        })
     };
 });
 
-app.controller('formController', function ($scope, MissionService) {
+app.controller('listController', function ($scope, MissionService) {
     $scope.missions = MissionService;
+    $scope.order = 'id';
     $scope.selectedIndex = null;
     $scope.selectedMission = null;
     $scope.search = "";
@@ -111,7 +140,11 @@ app.controller('formController', function ($scope, MissionService) {
 
 });
 
-app.service('MissionService', function ($rootScope, $http, $q,toaster) {
+app.controller('slideController', function () {
+
+});
+
+app.service('MissionService', function ($rootScope, $http, $q, toaster) {
     var self = {
             'getMission': function (ref) {
                 var req = {
@@ -137,7 +170,8 @@ app.service('MissionService', function ($rootScope, $http, $q,toaster) {
                     self.missions = data;
                     self.isloading = false;
                 }).error(function (data) {
-                    console.log("Erreur avec le get de missions")
+                    console.log("Erreur avec le get de missions");
+                    self.isLoading = false
                 });
             },
             'update': function () {
@@ -182,7 +216,7 @@ app.service('MissionService', function ($rootScope, $http, $q,toaster) {
                 });
                 return d.promise;
             },
-            'create': function (){
+            'create': function () {
                 self.isSaving = true;
                 var d = $q.defer();
                 var data = $.param({
